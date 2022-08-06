@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VehicleMarket.AppDBContext;
+using VehicleMarket.Data;
 
 #nullable disable
 
 namespace VehicleMarket.Migrations
 {
-    [DbContext(typeof(VehicleMarketDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20220804223021_AddModelAndMakeToDbWithConstraints")]
     partial class AddModelAndMakeToDbWithConstraints
     {

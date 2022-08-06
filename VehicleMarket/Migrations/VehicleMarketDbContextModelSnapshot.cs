@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VehicleMarket.AppDBContext;
+using VehicleMarket.Data;
 
 #nullable disable
 
 namespace VehicleMarket.Migrations
 {
-    [DbContext(typeof(VehicleMarketDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class VehicleMarketDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

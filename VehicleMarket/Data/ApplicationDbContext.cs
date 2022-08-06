@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VehicleMarket.Models;
 
-namespace VehicleMarket.AppDBContext
+namespace VehicleMarket.Data
 {
-    public class VehicleMarketDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public VehicleMarketDbContext(DbContextOptions<VehicleMarketDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }

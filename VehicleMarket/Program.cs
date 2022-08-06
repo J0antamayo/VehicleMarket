@@ -1,12 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using VehicleMarket.AppDBContext;
+using VehicleMarket.Data;
+using VehicleMarket.Interfaces;
+using VehicleMarket.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-var connectionString = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<VehicleMarketDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddScoped<IMakeRepository, MakeRepository>();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 var app = builder.Build();
 

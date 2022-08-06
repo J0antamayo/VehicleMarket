@@ -1,18 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VehicleMarket.AppDBContext;
+using VehicleMarket.Interfaces;
+using VehicleMarket.Models;
 
 namespace VehicleMarket.Controllers
 {
     public class MakeController : Controller
     {
-        private readonly VehicleMarketDbContext _vehicleMarketDb;
-        public MakeController(VehicleMarketDbContext vehicleMarketDb)
+        public readonly IMakeRepository _makeRepository;
+
+        public MakeController(IMakeRepository makeRepository)
         {
-            _vehicleMarketDb = vehicleMarketDb;
+            _makeRepository = makeRepository;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IEnumerable<Make> makes = await _makeRepository.GetAll();
+            return View(makes);
         }
     }
 }
