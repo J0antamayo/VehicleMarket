@@ -10,7 +10,7 @@ using VehicleMarket.Data;
 namespace VehicleMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class VehicleMarketDbContextModelSnapshot : ModelSnapshot
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

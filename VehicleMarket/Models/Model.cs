@@ -4,6 +4,7 @@ namespace VehicleMarket.Models
 {
     public class Model
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         [StringLength(255)]

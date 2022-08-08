@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Make>
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -25,7 +26,19 @@
                 <td>
                     @Html.DisplayFor(m=>item.Name)
                 </td>
-                <td class="text-end">Edit | Delete</td>
+                <td>
+                    <div class="text-end">
+                        <div class="btn-group">
+                            <a class="btn btn-primary" asp-controller="Make" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                            <form method="post" action="Delete">
+                                <input
+                                onclick="if (!confirm('¿Are you sure you want to delete this make?')){return false}"
+                                type="submit" class="btn btn-danger" asp-controller="Make" asp-action="Delete" 
+                                asp-route-id="@item.Id" value="Delete">
+                            </form>
+                        </div>
+                    </div>
+                </td>
             </tr>
         }
         </table>

@@ -11,7 +11,7 @@ using VehicleMarket.Data;
 namespace VehicleMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220804223021_AddModelAndMakeToDbWithConstraints")]
+    [Migration("20220808214338_AddModelAndMakeToDbWithConstraints")]
     partial class AddModelAndMakeToDbWithConstraints
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
