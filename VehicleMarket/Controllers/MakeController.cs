@@ -39,9 +39,25 @@ namespace VehicleMarket.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var make = await _makeRepository.GetByIdAsync(id);
+            if (make == null)
+            {
+                return NotFound();
+            }
+            return View(make);
+        }
+
+        [HttpPost]
         public IActionResult Edit(Make make)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                _makeRepository.Update(make);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(make);
         }
 
         [HttpPost]
