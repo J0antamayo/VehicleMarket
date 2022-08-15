@@ -11,23 +11,27 @@ namespace VehicleMarket.Controllers
         public ModelViewModel ModelVM { get; set; }
 
         private readonly IModelRepository _modelRepository;
-        private readonly IMakeRepository _makeRepository;
+        //private readonly IMakeRepository _makeRepository;
 
-        public ModelController(IModelRepository modelRepository, IMakeRepository makeRepository)
+        public ModelController(IModelRepository modelRepository
+            //,
+            //IMakeRepository makeRepository
+            )
         {
             _modelRepository = modelRepository;
-            _makeRepository = makeRepository;
+            //_makeRepository = makeRepository;
 
-            ModelVM = new ModelViewModel()
-            {
-                Makes = _makeRepository.GetAll(),
-                Model = new Model()
-            };
+            //ModelVM = new ModelViewModel()
+            //{
+            //    Makes = _makeRepository.GetAll(),
+            //    Model = new Model()
+            //};
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IEnumerable<Model> models = await _modelRepository.GetAll();
+            return View(models);
         }
     }
 }

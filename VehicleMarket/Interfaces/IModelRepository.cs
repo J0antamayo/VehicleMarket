@@ -8,5 +8,6 @@ namespace VehicleMarket.Interfaces
         bool Update(Model model);
         bool Delete(Model model);
         bool Save();
+        Task<IEnumerable<Model>> GetAll();
     }
 }

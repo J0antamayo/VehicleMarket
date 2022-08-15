@@ -1,4 +1,5 @@
-﻿using VehicleMarket.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using VehicleMarket.Data;
 using VehicleMarket.Interfaces;
 using VehicleMarket.Models;
 
@@ -11,6 +12,11 @@ namespace VehicleMarket.Repository
         public ModelRepository(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<IEnumerable<Model>> GetAll()
+        {
+            return await _context.Models.Include(m => m.Make).ToListAsync();
         }
 
         public bool Add(Model model)
