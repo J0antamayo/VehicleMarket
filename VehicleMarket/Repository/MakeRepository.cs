@@ -19,6 +19,11 @@ namespace VehicleMarket.Repository
             return await _context.Makes.ToListAsync();
         }
 
+        public IEnumerable<Make> GetMakeList()
+        {
+            return _context.Makes.ToList();
+        }
+
         public async Task<Make?> GetByIdAsync(int id)
         {
             return await _context.Makes.FirstOrDefaultAsync(x => x.Id == id);

@@ -7,31 +7,31 @@ namespace VehicleMarket.Controllers
 {
     public class ModelController : Controller
     {
-        [BindProperty]
-        public ModelViewModel ModelVM { get; set; }
-
         private readonly IModelRepository _modelRepository;
-        //private readonly IMakeRepository _makeRepository;
+        private readonly IMakeRepository _makeRepository;
 
-        public ModelController(IModelRepository modelRepository
-            //,
-            //IMakeRepository makeRepository
-            )
+        public ModelController(IModelRepository modelRepository, IMakeRepository makeRepository)
         {
             _modelRepository = modelRepository;
-            //_makeRepository = makeRepository;
-
-            //ModelVM = new ModelViewModel()
-            //{
-            //    Makes = _makeRepository.GetAll(),
-            //    Model = new Model()
-            //};
+            _makeRepository = makeRepository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             IEnumerable<Model> models = await _modelRepository.GetAll();
             return View(models);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var CreateModelViewModel = new CreateModelViewModel
+            {
+                Model = new Model(),
+                Makes = _makeRepository.GetMakeList()
+            };
+            return View(CreateModelViewModel);
         }
     }
 }
