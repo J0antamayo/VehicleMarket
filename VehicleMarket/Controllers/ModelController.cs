@@ -10,10 +10,18 @@ namespace VehicleMarket.Controllers
         private readonly IModelRepository _modelRepository;
         private readonly IMakeRepository _makeRepository;
 
+        [BindProperty]
+        public ModelViewModel ModelVM { get; set; }
+
         public ModelController(IModelRepository modelRepository, IMakeRepository makeRepository)
         {
             _modelRepository = modelRepository;
             _makeRepository = makeRepository;
+            ModelVM = new ModelViewModel
+            {
+                Makes = _makeRepository.GetMakeList(),
+                Model = new Model()
+            };
         }
 
         [HttpGet]
@@ -26,12 +34,20 @@ namespace VehicleMarket.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var CreateModelViewModel = new CreateModelViewModel
+            return View(ModelVM);
+        }
+
+        [HttpPost, ActionName("Create")]
+        public IActionResult CreatePost()
+        {
+            if (ModelState.IsValid)
             {
-                Model = new Model(),
-                Makes = _makeRepository.GetMakeList()
-            };
-            return View(CreateModelViewModel);
+                _modelRepository.Add(ModelVM.Model);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(ModelVM);
+
         }
     }
 }

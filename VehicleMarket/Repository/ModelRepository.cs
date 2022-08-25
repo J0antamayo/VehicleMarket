@@ -19,6 +19,11 @@ namespace VehicleMarket.Repository
             return await _context.Models.Include(m => m.Make).ToListAsync();
         }
 
+        public async Task<Model?> GetByIdAsync(int id)
+        {
+            return await _context.Models.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
         public bool Add(Model model)
         {
             _context.Add(model);

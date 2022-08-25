@@ -1,4 +1,4 @@
-﻿@model VehicleMarket.ViewModels.CreateModelViewModel;
+﻿@model VehicleMarket.ViewModels.ModelViewModel;
 @{
     ViewData["Title"] = "Create";
 }
@@ -10,10 +10,11 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group row">
         <div class="col-1">
-            <label>Makes</label>
+            <label asp-for="Makes"></label>
         </div>
         <div class="col-4">
-            @Html.DropDownList("Datos", Model.MakesList(Model.Makes), "Selecciona una opcion", new { @class="form-control" })
+            <select asp-for="Model.MakeId" class="form-control" asp-items="Model.MakesList(Model.Makes)"></select>
+            <span asp-validation-for="Model.MakeId" class="text-danger"></span>
         </div>
     </div>
     <br />

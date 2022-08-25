@@ -10,6 +10,8 @@ namespace VehicleMarket.Models
         [StringLength(255)]
         public string Name { get; set; }
         public Make Make { get; set; }
+        [Required]
+        [Display(Name = "Make")]
         public int MakeId { get; set; }
     }
 }
