@@ -27,8 +27,8 @@ namespace VehicleMarket.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Model> models = await _modelRepository.GetAll();
-            return View(models);
+            IEnumerable<Model> Models = await _modelRepository.GetAll();
+            return View(Models);
         }
 
         [HttpGet]
@@ -48,6 +48,42 @@ namespace VehicleMarket.Controllers
 
             return View(ModelVM);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var Model = await _modelRepository.GetByIdAsync(id);
+            if (Model == null)
+            {
+                return NotFound();
+            }
+            ModelVM.Model = Model;
+            return View(ModelVM);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        public IActionResult EditPost()
+        {
+            if (ModelState.IsValid)
+            {
+                _modelRepository.Update(ModelVM.Model);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(ModelVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var Model = await _modelRepository.GetByIdAsync(id);
+            if (Model == null)
+            {
+                return NotFound();
+            }
+            _modelRepository.Delete(Model);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
