@@ -12,8 +12,8 @@ using VehicleMarket.Data;
 namespace VehicleMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220828225504_CreateMakesModelsIdentityTables")]
-    partial class CreateMakesModelsIdentityTables
+    [Migration("20220901170354_FirstAndLastNameUserColumns")]
+    partial class FirstAndLastNameUserColumns
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,7 +48,7 @@ namespace VehicleMarket.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Role", (string)null);
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -180,6 +180,16 @@ namespace VehicleMarket.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -223,7 +233,7 @@ namespace VehicleMarket.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("VehicleMarket.Models.Make", b =>

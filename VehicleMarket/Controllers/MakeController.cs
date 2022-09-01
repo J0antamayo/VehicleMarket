@@ -4,6 +4,7 @@ using VehicleMarket.Models;
 
 namespace VehicleMarket.Controllers
 {
+    //[Authorize(Roles = "Admin,Executive")]
     public class MakeController : Controller
     {
         public readonly IMakeRepository _makeRepository;
