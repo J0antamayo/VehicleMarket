@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
+using VehicleMarket.Helpers;
 using VehicleMarket.Models;
 
 namespace VehicleMarket.Areas.Identity.Pages.Account
@@ -132,22 +133,22 @@ namespace VehicleMarket.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    if (!await _roleManager.RoleExistsAsync("Admin"))
+                    if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
                     {
-                        await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
                     }
-                    if (!await _roleManager.RoleExistsAsync("Executive"))
+                    if (!await _roleManager.RoleExistsAsync(UserRoles.Executive))
                     {
-                        await _roleManager.CreateAsync(new IdentityRole("Executive"));
+                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.Executive));
                     }
 
                     if (Input.IsAdmin)
                     {
-                        await _userManager.AddToRoleAsync(user, "Admin");
+                        await _userManager.AddToRoleAsync(user, UserRoles.Admin);
                     }
                     else
                     {
-                        await _userManager.AddToRoleAsync(user, "Executive");
+                        await _userManager.AddToRoleAsync(user, UserRoles.Executive);
                     }
 
                     _logger.LogInformation("User created a new account with password.");

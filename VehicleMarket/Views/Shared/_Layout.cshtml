@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using VehicleMarket.Helpers
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -23,7 +25,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (User.IsInRole("Admin") || User.IsInRole("Executive"))
+                        @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Executive))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

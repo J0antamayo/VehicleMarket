@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VehicleMarket.Interfaces;
 using VehicleMarket.Models;
 using VehicleMarket.ViewModels;
 
 namespace VehicleMarket.Controllers
 {
+    [Authorize(Roles = "Admin, Executive")]
     public class ModelController : Controller
     {
         private readonly IModelRepository _modelRepository;

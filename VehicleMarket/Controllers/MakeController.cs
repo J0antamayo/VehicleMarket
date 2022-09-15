@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VehicleMarket.Interfaces;
 using VehicleMarket.Models;
 
 namespace VehicleMarket.Controllers
 {
-    //[Authorize(Roles = "Admin,Executive")]
+    [Authorize(Roles = "Admin,Executive")]
     public class MakeController : Controller
     {
         public readonly IMakeRepository _makeRepository;
