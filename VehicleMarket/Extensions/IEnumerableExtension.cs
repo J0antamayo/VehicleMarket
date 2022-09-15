@@ -6,8 +6,8 @@ namespace VehicleMarket.Extensions
     {
         public static IEnumerable<SelectListItem> ToSelectListItem<T>(this IEnumerable<T> Items)
         {
-            List<SelectListItem> List = new List<SelectListItem>();
-            SelectListItem SelectListItem = new SelectListItem
+            List<SelectListItem> List = new();
+            SelectListItem SelectListItem = new()
             {
                 Text = "------ Select ------",
                 Value = ""
