@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehicleMarket.Data;
 
@@ -11,9 +12,10 @@ using VehicleMarket.Data;
 namespace VehicleMarket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220915212455_AddBikeTable")]
+    partial class AddBikeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,8 +240,9 @@ namespace VehicleMarket.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CurrencyId")
-                        .HasColumnType("int");
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Features")
                         .IsRequired()
@@ -278,34 +281,11 @@ namespace VehicleMarket.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CurrencyId");
-
                     b.HasIndex("MakeId");
 
                     b.HasIndex("ModelId");
 
                     b.ToTable("Bikes");
-                });
-
-            modelBuilder.Entity("VehicleMarket.Models.Currency", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Currencies");
                 });
 
             modelBuilder.Entity("VehicleMarket.Models.Make", b =>
@@ -402,12 +382,6 @@ namespace VehicleMarket.Migrations
 
             modelBuilder.Entity("VehicleMarket.Models.Bike", b =>
                 {
-                    b.HasOne("VehicleMarket.Models.Currency", "Currency")
-                        .WithMany()
-                        .HasForeignKey("CurrencyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("VehicleMarket.Models.Make", "Make")
                         .WithMany()
                         .HasForeignKey("MakeId")
@@ -419,8 +393,6 @@ namespace VehicleMarket.Migrations
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Currency");
 
                     b.Navigation("Make");
 

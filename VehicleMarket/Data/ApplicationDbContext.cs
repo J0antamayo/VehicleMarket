@@ -14,6 +14,9 @@ namespace VehicleMarket.Data
 
         public DbSet<Make> Makes { get; set; }
         public DbSet<Model> Models { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+
+        public DbSet<Bike> Bikes { get; set; }
         //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
