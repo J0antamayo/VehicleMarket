@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMakeRepository, MakeRepository>();
 builder.Services.AddScoped<IModelRepository, ModelRepository>();
+builder.Services.AddScoped<ICurrecyRepository, CurrencyRepository>();
+builder.Services.AddScoped<IBikeRepository, BikeRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
