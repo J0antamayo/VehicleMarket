@@ -7,6 +7,7 @@ namespace VehicleMarket.Interfaces
         Task<IEnumerable<Model>> GetAll();
         IEnumerable<Model> GetModelList();
         Task<Model?> GetByIdAsync(int id);
+        IEnumerable<Model> GetByMakeId(int id);
         bool Add(Model model);
         bool Update(Model model);
         bool Delete(Model model);

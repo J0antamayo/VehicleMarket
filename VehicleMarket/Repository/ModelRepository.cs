@@ -29,6 +29,11 @@ namespace VehicleMarket.Repository
             return await _context.Models.Include(m => m.Make).FirstOrDefaultAsync(m => m.Id == id);
         }
 
+        public IEnumerable<Model> GetByMakeId(int MakeId)
+        {
+            return _context.Models.Include(m => m.Make).Where(m => m.MakeId == MakeId);
+        }
+
         public bool Add(Model model)
         {
             _context.Add(model);

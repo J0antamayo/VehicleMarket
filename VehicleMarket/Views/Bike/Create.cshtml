@@ -5,6 +5,36 @@
     ViewData["Title"] = "Create";
 }
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var MakeDDL = $("#make");
+        var ModelDDL = $("#model");
+        ModelDDL.prop('disabled', true);
+
+
+        MakeDDL.change(function() {
+            if ($(this).val() == "0") {
+                ModelDDL.prop('disabled', true);
+                ModelDDL.val("0");
+            } else {
+                $.ajax({
+                    url: "/api/models/" + $(this).val(),
+                    method: "get",
+                    success: function(data) {
+                        ModelDDL.prop('disabled', false);
+                        ModelDDL.empty();
+                        ModelDDL.append($('<option>', { value: '0', text: '----- Select Model -----'}));
+                        $(data).each(function (index, item) {
+                            ModelDDL.append($('<option>', { value: item.id, text: item.name }));
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+    
 <br />
 <h2 class="text-info">Add Model of Vehicle</h2>
 
@@ -15,7 +45,7 @@
             <label asp-for="Makes"></label>
         </div>
         <div class="col-4">
-            <select asp-for="Bike.MakeId" class="form-control" asp-items="Model.Makes.ToSelectListItem()"></select>
+            <select asp-for="Bike.MakeId" class="form-control" asp-items="Model.Makes.ToSelectListItem()" id="make"></select>
             <span asp-validation-for="Bike.MakeId" class="text-danger"></span>
         </div>
         <div class="col-1">
@@ -31,7 +61,7 @@
             <label asp-for="Models"></label>
         </div>
         <div class="col-4">
-            <select asp-for="Bike.ModelId" class="form-control" asp-items="Model.Models.ToSelectListItem()"></select>
+            <select asp-for="Bike.ModelId" class="form-control" asp-items="Model.Models.ToSelectListItem()" id="model"></select>
             <span asp-validation-for="Bike.ModelId" class="text-danger"></span>
         </div>
     </div>
@@ -98,7 +128,7 @@
             <label asp-for="Bike.SellerEmail"></label>
         </div>
         <div class="col-4">
-            <input asp-for="Bike.SellerEmail" class="form-control" />
+            <input type="email" asp-for="Bike.SellerEmail" class="form-control" />
             <span asp-validation-for="Bike.SellerEmail" class="text-danger"></span>
         </div>
     </div>

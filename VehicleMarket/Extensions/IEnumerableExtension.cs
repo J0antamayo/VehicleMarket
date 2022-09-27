@@ -10,7 +10,7 @@ namespace VehicleMarket.Extensions
             SelectListItem SelectListItem = new()
             {
                 Text = "------ Select ------",
-                Value = ""
+                Value = "0"
             };
             List.Add(SelectListItem);
             foreach (var Item in Items ?? Enumerable.Empty<T>())

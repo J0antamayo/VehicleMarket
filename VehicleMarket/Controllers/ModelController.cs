@@ -87,5 +87,12 @@ namespace VehicleMarket.Controllers
             _modelRepository.Delete(Model);
             return RedirectToAction(nameof(Index));
         }
+
+        [AllowAnonymous]
+        [HttpGet("api/models/{MakeId}")]
+        public IEnumerable<Model> Models(int MakeId)
+        {
+            return _modelRepository.GetByMakeId(MakeId);
+        }
     }
 }
