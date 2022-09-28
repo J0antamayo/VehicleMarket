@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using cloudscribe.Pagination.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleMarket.Interfaces;
 using VehicleMarket.Models;
@@ -35,11 +36,29 @@ namespace VehicleMarket.Controllers
 
         }
 
+        //[HttpGet]
+        //public async Task<IActionResult> Index2()
+        //{
+        //    IEnumerable<Bike> Bikes = await _bikeRepository.GetAll();
+        //    return View(Bikes);
+        //}
+
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int PageNumber = 1, int PageSize = 1)
         {
-            IEnumerable<Bike> Bikes = await _bikeRepository.GetAll();
-            return View(Bikes);
+            int ExcludeRecords = (PageSize * PageNumber) - PageSize;
+
+            var bikes = _bikeRepository.GetAll(ExcludeRecords, PageSize);
+
+            var result = new PagedResult<Bike>
+            {
+                Data = bikes.ToList(),
+                TotalItems = bikes.Count(),
+                PageNumber = PageNumber,
+                PageSize = PageSize,
+            };
+
+            return View(result);
         }
 
         [HttpGet]

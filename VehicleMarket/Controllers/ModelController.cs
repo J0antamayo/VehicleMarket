@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VehicleMarket.Controllers.Resources;
 using VehicleMarket.Interfaces;
 using VehicleMarket.Models;
 using VehicleMarket.ViewModels;
@@ -11,11 +13,12 @@ namespace VehicleMarket.Controllers
     {
         private readonly IModelRepository _modelRepository;
         private readonly IMakeRepository _makeRepository;
+        private readonly IMapper _mapper;
 
         [BindProperty]
         public ModelViewModel ModelVM { get; set; }
 
-        public ModelController(IModelRepository modelRepository, IMakeRepository makeRepository)
+        public ModelController(IModelRepository modelRepository, IMakeRepository makeRepository, IMapper mapper)
         {
             _modelRepository = modelRepository;
             _makeRepository = makeRepository;
@@ -24,6 +27,7 @@ namespace VehicleMarket.Controllers
                 Makes = _makeRepository.GetMakeList(),
                 Model = new Model()
             };
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -90,9 +94,19 @@ namespace VehicleMarket.Controllers
 
         [AllowAnonymous]
         [HttpGet("api/models/{MakeId}")]
-        public IEnumerable<Model> Models(int MakeId)
+        public IEnumerable<ModelResource> ModelsByMake(int MakeId)
         {
-            return _modelRepository.GetByMakeId(MakeId);
+            var models = _modelRepository.GetByMakeId(MakeId);
+            return _mapper.Map<List<Model>, List<ModelResource>>(models.ToList());
+        }
+
+        [AllowAnonymous]
+        [HttpGet("api/models")]
+        public IEnumerable<ModelResource> Models()
+        {
+            var models = _modelRepository.GetModelList();
+
+            return _mapper.Map<List<Model>, List<ModelResource>>(models.ToList());
         }
     }
 }

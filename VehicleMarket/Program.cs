@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VehicleMarket.Data;
 using VehicleMarket.Interfaces;
+using VehicleMarket.MappingProfiles;
 using VehicleMarket.Models;
 using VehicleMarket.Repository;
 
@@ -14,6 +15,8 @@ builder.Services.AddScoped<IModelRepository, ModelRepository>();
 builder.Services.AddScoped<ICurrecyRepository, CurrencyRepository>();
 builder.Services.AddScoped<IBikeRepository, BikeRepository>();
 
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -25,8 +28,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
 .AddDefaultUI()
 .AddDefaultTokenProviders();
 
-
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddCloudscribePagination();
 
 var app = builder.Build();
 

@@ -18,9 +18,14 @@ namespace VehicleMarket.Repository
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public async Task<IEnumerable<Bike>> GetAll()
+        public IEnumerable<Bike> GetAll(int ExcludeRecords, int PageSize)
         {
-            return await _context.Bikes.Include(b => b.Make).Include(b => b.Model).ToListAsync();
+            return _context.Bikes
+                .Include(b => b.Make)
+                .Include(b => b.Model)
+                .Skip(ExcludeRecords)
+                .Take(PageSize)
+                .AsNoTracking();
         }
 
         public async Task<Bike> GetByIdAsync(int id)
