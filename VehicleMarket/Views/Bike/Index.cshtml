@@ -3,9 +3,20 @@
 
 @{
     ViewData["Title"] = "Index";
+    ViewData["Controller"] = "Bike";
+    ViewData["Action"] = "Index";
 }
 
 <br />
+<form asp-action="Index" method="get">
+    <div>
+        <p>
+            Find Make <input type="text" name="SearchString" value="" />
+            <input type="submit" value="Search" class="btn btn-info"/> | 
+            <a asp-action="Index">Remove Filter</a>
+        </p>
+    </div>
+</form>
 <div class="row">
     <div class="col-6">
         <h2 class="text-info">Bikes</h2>
@@ -19,7 +30,9 @@
             <tr class="table-info">
                 <th>Bike Photo</th>
                 <th>Bike Detail</th>
-                <th>Price</th>
+                <th>
+                    <a asp-action="Index" asp-route-SortOrder="@ViewBag.PriceSortParam">Price</a> 
+                </th>
                 <th>Seller Information</th>
                 <th></th>
             </tr>
@@ -44,17 +57,6 @@
                 </tr>
             }
         </table>
-        <cs-pager cs-paging-pagenumber=Model.PageNumber
-            cs-paging-totalitems=Model.TotalItems
-            cs-paging-pagesize=Model.PageSize
-            cs-pagenumber-param="pagenumber"
-            asp-controller="Bike"
-            asp-action="Index"
-            cs-pager-li-current-class="page-item active"
-            cs-pager-li-other-class="page-item"
-            cs-pager-li-non-active-class="page-item disabled"
-            cs-pager-link-current-class="page-link"
-            cs-pager-link-other-class="page-link">
-        </cs-pager>
+        <partial name="_PaginationPartial" model="Model" view-data="ViewData"/>
     </div>
 </div>

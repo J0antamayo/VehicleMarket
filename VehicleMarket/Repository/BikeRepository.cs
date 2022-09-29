@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using cloudscribe.Pagination.Models;
+using Microsoft.EntityFrameworkCore;
 using VehicleMarket.Data;
 using VehicleMarket.Interfaces;
 using VehicleMarket.Models;
@@ -18,14 +19,70 @@ namespace VehicleMarket.Repository
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public IEnumerable<Bike> GetAll(int ExcludeRecords, int PageSize)
+        public PagedResult<Bike> GetBikes(int PageSize, int PageNumber, string SortOrder, string SearchString)
         {
-            return _context.Bikes
-                .Include(b => b.Make)
-                .Include(b => b.Model)
-                .Skip(ExcludeRecords)
-                .Take(PageSize)
-                .AsNoTracking();
+            int excludeRecords = this.getExcludeRecords(PageSize, PageNumber);
+
+            IQueryable<Bike> bikes = this.getBikesQuery();
+
+            bikes = this.searchBikesByMake(bikes, SearchString);
+
+            var bikesCount = bikes.Count();
+
+            bikes = this.SortByPrice(bikes, SortOrder);
+
+            var data = bikes
+                    .Skip(excludeRecords)
+                    .Take(PageSize)
+                    .AsNoTracking()
+                    .ToList();
+
+            return new PagedResult<Bike>
+            {
+                Data = data,
+                TotalItems = bikesCount,
+                PageNumber = PageNumber,
+                PageSize = PageSize,
+            };
+        }
+
+        public IQueryable<Bike> getBikesQuery()
+        {
+            return from b in _context.Bikes.Include(b => b.Make).Include(b => b.Model)
+                   select b;
+        }
+
+        public int getExcludeRecords(int PageSize, int PageNumber)
+        {
+            int ExcludeRecords = (PageSize * PageNumber) - PageSize;
+            return ExcludeRecords;
+        }
+
+        public IQueryable<Bike> searchBikesByMake(IQueryable<Bike> Bikes, string SearchFilter)
+        {
+            var result = Bikes;
+            if (!String.IsNullOrEmpty(SearchFilter))
+            {
+                result = result.Where(b => b.Make.Name.Contains(SearchFilter));
+            }
+            return result;
+        }
+
+        public IQueryable<Bike> SortByPrice(IQueryable<Bike> Bikes, string SortOrder)
+        {
+            var result = Bikes;
+
+            switch (SortOrder)
+            {
+                case "price_desc":
+                    result = Bikes.OrderByDescending(b => b.Price);
+                    break;
+                default:
+                    result = Bikes.OrderBy(b => b.Price);
+                    break;
+            }
+
+            return result;
         }
 
         public async Task<Bike> GetByIdAsync(int id)

@@ -1,5 +1,4 @@
-﻿using cloudscribe.Pagination.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleMarket.Interfaces;
 using VehicleMarket.Models;
@@ -36,27 +35,12 @@ namespace VehicleMarket.Controllers
 
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Index2()
-        //{
-        //    IEnumerable<Bike> Bikes = await _bikeRepository.GetAll();
-        //    return View(Bikes);
-        //}
-
         [HttpGet]
-        public IActionResult Index(int PageNumber = 1, int PageSize = 1)
+        public IActionResult Index(string SearchString, string SortOrder, int PageNumber = 1, int PageSize = 2)
         {
-            int ExcludeRecords = (PageSize * PageNumber) - PageSize;
+            ViewBag.PriceSortParam = String.IsNullOrEmpty(SortOrder) ? "price_desc" : "";
 
-            var bikes = _bikeRepository.GetAll(ExcludeRecords, PageSize);
-
-            var result = new PagedResult<Bike>
-            {
-                Data = bikes.ToList(),
-                TotalItems = bikes.Count(),
-                PageNumber = PageNumber,
-                PageSize = PageSize,
-            };
+            var result = _bikeRepository.GetBikes(PageSize, PageNumber, SortOrder, SearchString);
 
             return View(result);
         }
@@ -83,17 +67,17 @@ namespace VehicleMarket.Controllers
             return View(BikeVM);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var Model = await _modelRepository.GetByIdAsync(id);
-        //    if (Model == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ModelVM.Model = Model;
-        //    return View(ModelVM);
-        //}
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var bike = await _bikeRepository.GetByIdAsync(Id);
+            if (bike == null)
+            {
+                return NotFound();
+            }
+            BikeVM.Bike = bike;
+            return View(BikeVM);
+        }
 
         //[HttpPost, ActionName("Edit")]
         //public IActionResult EditPost()
