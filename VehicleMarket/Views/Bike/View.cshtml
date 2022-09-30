@@ -1,0 +1,104 @@
+﻿@model VehicleMarket.ViewModels.BikeViewModel;
+@using VehicleMarket.Extensions;
+
+@{
+    ViewData["Title"] = "View Bike";
+}
+
+<br />
+<h2 class="text-info">View Bike</h2>
+
+<form>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Makes"></label>
+        </div>
+        <div class="col-4">
+            <select disabled asp-for="Bike.MakeId" class="form-control" asp-items="Model.Makes.ToSelectListItem()" id="make"></select>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Models"></label>
+        </div>
+        <div class="col-4">
+            <select disabled asp-for="Bike.ModelId" class="form-control" asp-items="Model.Models.ToSelectListItem()" id="model"></select>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.Year"></label>
+        </div>
+        <div class="col-4">
+            <input disabled asp-for="Bike.Year" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.Mileage"></label>
+        </div>
+        <div class="col-4">
+            <input disabled asp-for="Bike.Mileage" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.Price"></label>
+        </div>
+        <div class="col-4">
+            <input disabled asp-for="Bike.Price" class="form-control" />
+        </div>
+        <div class="col-1">
+            <label asp-for="Bike.Currency"></label>
+        </div>
+        <div class="col-4">
+            <select disabled asp-for="Bike.CurrencyId" class="form-control" asp-items="Model.Currencies.ToSelectListItem()"></select>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.Features"></label>
+        </div>
+        <div class="col-4">
+            <input disabled asp-for="Bike.Features" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.SellerName"></label>
+        </div>
+        <div class="col-4">
+            <input disabled asp-for="Bike.SellerName" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.SellerEmail"></label>
+        </div>
+        <div class="col-4">
+            <input disabled type="email" asp-for="Bike.SellerEmail" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.SellerPhone"></label>
+        </div>
+        <div class="col-4">
+            <input disabled asp-for="Bike.SellerPhone" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="col-4 form-group">
+        <a asp-action="Index" class="btn btn-success">Back</a>
+    </div>
+</form>
+

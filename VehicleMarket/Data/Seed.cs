@@ -52,6 +52,30 @@ namespace VehicleMarket.Data
                     });
                     context.SaveChanges();
                 }
+
+                //Currencies
+                if (!context.Currencies.Any())
+                {
+                    context.Currencies.AddRange(new List<Currency>()
+                    {
+                        new Currency()
+                        {
+                            Name = "US Dollars",
+                            Code = "USD"
+                        },
+                        new Currency()
+                        {
+                            Name = "Euro",
+                            Code = "EUR"
+                        },
+                        new Currency()
+                        {
+                            Name = "Colombian Peso",
+                            Code = "COP"
+                        }
+                    });
+                    context.SaveChanges();
+                }
             }
         }
 

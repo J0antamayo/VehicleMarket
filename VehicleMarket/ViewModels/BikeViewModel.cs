@@ -3,11 +3,16 @@ using VehicleMarket.Models;
 
 namespace VehicleMarket.ViewModels
 {
-    public class ModelViewModel
+    public class BikeViewModel
     {
         [ValidateNever]
-        public Model Model { get; set; }
+        public Bike Bike { get; set; }
         [ValidateNever]
         public IEnumerable<Make> Makes { get; set; }
+        [ValidateNever]
+        public IEnumerable<Model> Models { get; set; }
+        [ValidateNever]
+        public IEnumerable<Currency> Currencies { get; set; }
+
     }
 }

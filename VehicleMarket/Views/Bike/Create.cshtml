@@ -1,0 +1,157 @@
+﻿@model VehicleMarket.ViewModels.BikeViewModel;
+@using VehicleMarket.Extensions;
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var MakeDDL = $("#make");
+        var ModelDDL = $("#model");
+        ModelDDL.prop('disabled', true);
+
+
+        MakeDDL.change(function() {
+            if ($(this).val() == "0") {
+                ModelDDL.prop('disabled', true);
+                ModelDDL.val("0");
+            } else {
+                $.ajax({
+                    url: "/api/models/" + $(this).val(),
+                    method: "get",
+                    success: function(data) {
+                        ModelDDL.prop('disabled', false);
+                        ModelDDL.empty();
+                        ModelDDL.append($('<option>', { value: '0', text: '----- Select Model -----'}));
+                        $(data).each(function (index, item) {
+                            ModelDDL.append($('<option>', { value: item.id, text: item.name }));
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+    
+<br />
+<h2 class="text-info">Add Bike</h2>
+
+<form method="post" enctype="multipart/form-data" asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Makes"></label>
+        </div>
+        <div class="col-4">
+            <select asp-for="Bike.MakeId" class="form-control" asp-items="Model.Makes.ToSelectListItem()" id="make"></select>
+            <span asp-validation-for="Bike.MakeId" class="text-danger"></span>
+        </div>
+        <div class="col-1">
+            <label asp-for="Bike.ImagePath"></label>
+        </div>
+        <div class="col-4">
+            <input type="file" name="files" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Models"></label>
+        </div>
+        <div class="col-4">
+            <select asp-for="Bike.ModelId" class="form-control" asp-items="Model.Models.ToSelectListItem()" id="model"></select>
+            <span asp-validation-for="Bike.ModelId" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.Year"></label>
+        </div>
+        <div class="col-4">
+            <input asp-for="Bike.Year" class="form-control" />
+            <span asp-validation-for="Bike.Year" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.Mileage"></label>
+        </div>
+        <div class="col-4">
+            <input asp-for="Bike.Mileage" class="form-control" />
+            <span asp-validation-for="Bike.Mileage" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.Price"></label>
+        </div>
+        <div class="col-4">
+            <input asp-for="Bike.Price" class="form-control" />
+            <span asp-validation-for="Bike.Price" class="text-danger"></span>
+        </div>
+        <div class="col-1">
+            <label asp-for="Bike.Currency"></label>
+        </div>
+        <div class="col-4">
+            <select asp-for="Bike.CurrencyId" class="form-control" asp-items="Model.Currencies.ToSelectListItem()"></select>
+            <span asp-validation-for="Bike.CurrencyId" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.Features"></label>
+        </div>
+        <div class="col-4">
+            <input asp-for="Bike.Features" class="form-control" />
+            <span asp-validation-for="Bike.Features" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.SellerName"></label>
+        </div>
+        <div class="col-4">
+            <input asp-for="Bike.SellerName" class="form-control" />
+            <span asp-validation-for="Bike.SellerName" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.SellerEmail"></label>
+        </div>
+        <div class="col-4">
+            <input type="email" asp-for="Bike.SellerEmail" class="form-control" />
+            <span asp-validation-for="Bike.SellerEmail" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-1">
+            <label asp-for="Bike.SellerPhone"></label>
+        </div>
+        <div class="col-4">
+            <input asp-for="Bike.SellerPhone" class="form-control" />
+            <span asp-validation-for="Bike.SellerPhone" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="col-4 form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-success">Back</a>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

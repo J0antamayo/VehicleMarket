@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VehicleMarket.Data;
 using VehicleMarket.Interfaces;
+using VehicleMarket.MappingProfiles;
 using VehicleMarket.Models;
 using VehicleMarket.Repository;
 
@@ -11,6 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMakeRepository, MakeRepository>();
 builder.Services.AddScoped<IModelRepository, ModelRepository>();
+builder.Services.AddScoped<ICurrecyRepository, CurrencyRepository>();
+builder.Services.AddScoped<IBikeRepository, BikeRepository>();
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -23,15 +28,16 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
 .AddDefaultUI()
 .AddDefaultTokenProviders();
 
-
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddCloudscribePagination();
 
 var app = builder.Build();
 
 if (args.Length == 1 && args[0].ToLower() == "seeddata")
 {
     Seed.SeedData(app);
-    await Seed.SeedUsersAndRolesAsync(app);
+    //await Seed.SeedUsersAndRolesAsync(app);
 }
 
 // Configure the HTTP request pipeline.
@@ -52,7 +58,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Bike}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();
