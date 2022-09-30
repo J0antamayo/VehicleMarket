@@ -1,4 +1,6 @@
 ﻿@using cloudscribe.Pagination.Models
+@using VehicleMarket.Helpers
+
 @model PagedResult<Bike>
 
 @{
@@ -21,9 +23,12 @@
     <div class="col-6">
         <h2 class="text-info">Bikes</h2>
     </div>
-    <div class="col-6 text-end">
-        <a class="btn btn-info" asp-controller="Bike" asp-action="Create"><i class="fas fa-motorcycle"></i> Add New Bike</a>
-    </div>
+    @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Executive))
+    {
+        <div class="col-6 text-end">
+            <a class="btn btn-info" asp-controller="Bike" asp-action="Create"><i class="fas fa-motorcycle"></i> Add New Bike</a>
+        </div>
+    }
     <br />
     <div>
         <table class="table table-striped border">
@@ -34,7 +39,12 @@
                     <a asp-action="Index" asp-route-SortOrder="@ViewBag.PriceSortParam">Price</a> 
                 </th>
                 <th>Seller Information</th>
-                <th></th>
+                @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Executive))
+                {
+                    <th></th>
+                } else {
+                    <th class="text-end">View Details</th>
+                }
             </tr>
             @foreach (var item in Model.Data)
             {
@@ -53,7 +63,17 @@
                         <b>Email: </b> @Html.DisplayFor(m => item.SellerEmail) <br />
                         <b>Phone: </b> @Html.DisplayFor(m => item.SellerPhone) <br />
                     </td>
-                    <partial name="_TableButtonPartial" model="item.Id" />
+                    @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Executive)) {
+                        <partial name="_TableButtonPartial" model="item.Id" />  
+                    } else {
+                        <td>
+                            <div class="text-end">
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" asp-action="View" asp-route-id="@item.Id"><i class="fas fa-search-plus"></i></a>
+                                </div>
+                            </div>
+                        </td>
+                    }
                 </tr>
             }
         </table>

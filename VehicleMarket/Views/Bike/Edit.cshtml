@@ -38,7 +38,9 @@
 <br />
 <h2 class="text-info">Add Model of Vehicle</h2>
 
-<form method="post" enctype="multipart/form-data" asp-action="Create">
+<form method="post" enctype="multipart/form-data" asp-action="Edit">
+    <input hidden asp-for="Bike.Id" />
+    <input hidden asp-for="Bike.ImagePath" />
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group row">
         <div class="col-1">
@@ -144,7 +146,7 @@
     </div>
     <br />
     <div class="col-4 form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="Update" class="btn btn-primary" />
         <a asp-action="Index" class="btn btn-success">Back</a>
     </div>
 

@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VehicleMarket.Helpers;
 using VehicleMarket.Interfaces;
 using VehicleMarket.Models;
 using VehicleMarket.ViewModels;
 
 namespace VehicleMarket.Controllers
 {
-    [Authorize(Roles = "Admin, Executive")]
+    [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Executive)]
     public class BikeController : Controller
     {
         private readonly IBikeRepository _bikeRepository;
@@ -35,6 +36,7 @@ namespace VehicleMarket.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index(string SearchString, string SortOrder, int PageNumber = 1, int PageSize = 2)
         {
@@ -71,25 +73,33 @@ namespace VehicleMarket.Controllers
         public async Task<IActionResult> Edit(int Id)
         {
             var bike = await _bikeRepository.GetByIdAsync(Id);
+
             if (bike == null)
             {
                 return NotFound();
             }
+
+            BikeVM.Models = _modelRepository.GetByMakeId(bike.MakeId);
+
             BikeVM.Bike = bike;
             return View(BikeVM);
         }
 
-        //[HttpPost, ActionName("Edit")]
-        //public IActionResult EditPost()
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _modelRepository.Update(ModelVM.Model);
-        //        return RedirectToAction(nameof(Index));
-        //    }
+        [HttpPost, ActionName("Edit")]
+        public IActionResult EditPost()
+        {
+            if (ModelState.IsValid)
+            {
+                _bikeRepository.Update(BikeVM.Bike);
 
-        //    return View(ModelVM);
-        //}
+                var files = HttpContext.Request.Form.Files;
+                _bikeRepository.UploadImage(BikeVM.Bike, files);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(BikeVM);
+        }
 
         //[HttpPost]
         //public async Task<IActionResult> Delete(int id)
@@ -102,6 +112,21 @@ namespace VehicleMarket.Controllers
         //    _modelRepository.Delete(Model);
         //    return RedirectToAction(nameof(Index));
         //}
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> View(int Id)
+        {
+            var bike = await _bikeRepository.GetByIdAsync(Id);
+
+            if (bike == null)
+            {
+                return NotFound();
+            }
+
+            BikeVM.Bike = bike;
+            return View(BikeVM);
+        }
     }
 }
 
