@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="~/adminlte/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/adminlte/dist/css/adminlte.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     @await RenderSectionAsync("Styles", required: false)
 
 
@@ -20,7 +22,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         @RenderBody()
-        <partial name="_Footer" />
+        @*<partial name="_Footer" />*@
     </div>
 
     <!-- REQUIRED SCRIPTS -->
