@@ -48,7 +48,7 @@ namespace VehicleMarket.Repository
 
         public IQueryable<Bike> getBikesQuery()
         {
-            return from b in _context.Bikes.Include(b => b.Make).Include(b => b.Model)
+            return from b in _context.Bikes.Include(b => b.Make).Include(b => b.Model).Include(b => b.Currency)
                    select b;
         }
 
