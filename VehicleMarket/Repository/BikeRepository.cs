@@ -19,13 +19,14 @@ namespace VehicleMarket.Repository
             _hostingEnvironment = hostingEnvironment;
         }
 
+        /* ------- Bikes Masters Section --------- */
         public PagedResult<Bike> GetBikes(int PageSize, int PageNumber, string SortOrder, string SearchString)
         {
-            int excludeRecords = this.getExcludeRecords(PageSize, PageNumber);
+            int excludeRecords = this.GetExcludeRecords(PageSize, PageNumber);
 
-            IQueryable<Bike> bikes = this.getBikesQuery();
+            IQueryable<Bike> bikes = this.GetBikesQuery();
 
-            bikes = this.searchBikesByMake(bikes, SearchString);
+            bikes = this.SearchBikesByMake(bikes, SearchString);
 
             var bikesCount = bikes.Count();
 
@@ -46,19 +47,19 @@ namespace VehicleMarket.Repository
             };
         }
 
-        public IQueryable<Bike> getBikesQuery()
+        public IQueryable<Bike> GetBikesQuery()
         {
-            return from b in _context.Bikes.Include(b => b.Make).Include(b => b.Model)
+            return from b in _context.Bikes.Include(b => b.Make).Include(b => b.Model).Include(b => b.Currency)
                    select b;
         }
 
-        public int getExcludeRecords(int PageSize, int PageNumber)
+        public int GetExcludeRecords(int PageSize, int PageNumber)
         {
             int ExcludeRecords = (PageSize * PageNumber) - PageSize;
             return ExcludeRecords;
         }
 
-        public IQueryable<Bike> searchBikesByMake(IQueryable<Bike> Bikes, string SearchFilter)
+        public IQueryable<Bike> SearchBikesByMake(IQueryable<Bike> Bikes, string SearchFilter)
         {
             var result = Bikes;
             if (!String.IsNullOrEmpty(SearchFilter))
@@ -83,6 +84,46 @@ namespace VehicleMarket.Repository
             }
 
             return result;
+        }
+
+        /* ------- Bikes Market Section --------- */
+
+        //Returns records of bikes posted in market section with pagination
+        public PagedResult<Bike> GetBikesMarket(int PageSize, int PageNumber)
+        {
+            int excludeRecords = this.GetExcludeRecords(PageSize, PageNumber);
+
+            IQueryable<Bike> bikes = this.GetBikesQuery();
+
+            var bikesCount = bikes.Count();
+
+            var data = bikes
+                    .Skip(excludeRecords)
+                    .Take(PageSize)
+                    .AsNoTracking()
+                    .ToList();
+
+            return new PagedResult<Bike>
+            {
+                Data = data,
+                TotalItems = bikesCount,
+                PageNumber = PageNumber,
+                PageSize = PageSize,
+            };
+        }
+
+        public IQueryable<Bike> GetBikesQueryMarket()
+        {
+            return from b in _context.Bikes.Include(b => b.Make).Include(b => b.Model).Include(b => b.Currency)
+                   select b;
+        }
+
+        //Value of excluded records to create pagination
+        //of bikes market section
+        public int GetExcludeRecordsMarket(int PageSize, int PageNumber)
+        {
+            int ExcludeRecords = (PageSize * PageNumber) - PageSize;
+            return ExcludeRecords;
         }
 
         public async Task<Bike> GetByIdAsync(int id)

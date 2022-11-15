@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleMarket", "VehicleMarket\VehicleMarket.csproj", "{5B40FDB5-330C-44FE-AA38-5B1D2F6AE7AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleMarket.Tests", "VehicleMarket.Tests\VehicleMarket.Tests.csproj", "{BCECC88A-0776-4DA5-9F9D-A2EA5DE05641}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5B40FDB5-330C-44FE-AA38-5B1D2F6AE7AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B40FDB5-330C-44FE-AA38-5B1D2F6AE7AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B40FDB5-330C-44FE-AA38-5B1D2F6AE7AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCECC88A-0776-4DA5-9F9D-A2EA5DE05641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCECC88A-0776-4DA5-9F9D-A2EA5DE05641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCECC88A-0776-4DA5-9F9D-A2EA5DE05641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCECC88A-0776-4DA5-9F9D-A2EA5DE05641}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

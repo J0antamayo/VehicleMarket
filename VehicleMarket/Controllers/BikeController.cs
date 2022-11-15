@@ -127,6 +127,14 @@ namespace VehicleMarket.Controllers
             BikeVM.Bike = bike;
             return View(BikeVM);
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Market(int PageNumber = 1, int PageSize = 6)
+        {
+            var result = _bikeRepository.GetBikesMarket(PageSize, PageNumber);
+            return View(result);
+        }
     }
 }
 

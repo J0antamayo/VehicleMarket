@@ -6,6 +6,7 @@ namespace VehicleMarket.Interfaces
     public interface IBikeRepository
     {
         PagedResult<Bike> GetBikes(int PageSize, int PageNumber, string SortOrder, string SearchString);
+        PagedResult<Bike> GetBikesMarket(int PageSize, int PageNumber);
         Task<Bike> GetByIdAsync(int id);
         void UploadImage(Bike bike, IFormFileCollection files);
         bool Add(Bike bike);

@@ -16,7 +16,7 @@ namespace VehicleMarket.Models
         public Model Model { get; set; }
 
         [Required(ErrorMessage = "Select Model")]
-        [RegularExpression("^[1-9]*$", ErrorMessage = "Select Make")]
+        //[RegularExpression("^[1-9]*$", ErrorMessage = "Select Model")]
         public int ModelId { get; set; }
 
         [Required(ErrorMessage = "Provide Year")]

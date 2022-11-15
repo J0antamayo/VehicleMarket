@@ -4,10 +4,35 @@
     ViewData["Title"] = "Edit";
 }
 
-<br />
-<h2 class="text-info">Add Make of Vehicle</h2>
+<div class="row">
+    <div class="col-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold">Edit Make</h3>
+            </div>
+            <!-- form start -->
+            <form method="post" asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Name">Name</label>
+                        <input type="text" asp-for="Name" class="form-control" placeholder="Enter Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="col-4 form-group">
+                        <input type="submit" value="Update" class="btn btn-success" />
+                        <a asp-action="Index" class="btn btn-primary">Back</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-<form method="post" asp-action="Edit">
+@*<form method="post" asp-action="Edit">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group row">
         <div class="col-1">
@@ -23,11 +48,11 @@
             <a asp-action="Index" class="btn btn-success">Back</a>
         </div>
     </div>
-</form>
+</form>*@
 
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 
