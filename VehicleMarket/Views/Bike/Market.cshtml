@@ -1,0 +1,64 @@
+﻿@using cloudscribe.Pagination.Models
+
+@model PagedResult<Bike>
+
+@{
+    ViewData["Title"] = "Bike Market";
+    ViewData["Controller"] = "Bike";
+    ViewData["Action"] = "Market";
+}
+
+<div class="card card-solid">
+    <div class="card-body pb-0">
+        <div class="row">
+            @foreach (var item in Model.Data)
+            {
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                    <div class="card bg-light d-flex flex-fill">
+                        <div class="card-header text-muted border-bottom-0">
+                            @Html.DisplayFor(m => item.Make.Name)
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="lead"><b>@Html.DisplayFor(m => item.Model.Name)</b></h2>
+                                    @*<p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>*@
+                                    <b>Bike Information</b>
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-tachometer-alt"></i></span> Mileage: @Html.DisplayFor(m => item.Mileage) </li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-motorcycle"></i></span> Features: @Html.DisplayFor(m => item.Features) </li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-dollar-sign"></i></span> Price: $ @Html.DisplayFor(m => item.Price) (@Html.DisplayFor(m => item.Currency.Name))</li>
+
+                                    </ul>
+                                    <br />
+                                    <b>Seller Information </b>
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span> Name: @Html.DisplayFor(m => item.SellerName)</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> Email: @Html.DisplayFor(m => item.SellerEmail)</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: @Html.DisplayFor(m => item.SellerPhone)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-5 text-center">
+                                    <img src="@Html.DisplayFor(m => item.ImagePath)" alt="bike-photo" width="150px" height="100px" class="img-circle img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="card-footer">
+                            <div class="text-right">
+                                <a href="#" class="btn btn-sm bg-teal">
+                                    <i class="fas fa-comments"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user"></i> View Profile
+                                </a>
+                            </div>
+                        </div>*@
+                    </div>
+                </div> 
+            }
+        </div>
+        <div class="card-footer">
+            <partial name="_PaginationPartial" model="Model" view-data="ViewData" />
+        </div>
+    </div>
+</div>
