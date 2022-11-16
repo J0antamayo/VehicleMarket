@@ -4,7 +4,7 @@
 Vehicle Market is an online platform to allow users to find vehicles on sale.
 
 
-## 🏍️ Getting Started 
+## Getting Started 
 
 1. Clone the project.
 
