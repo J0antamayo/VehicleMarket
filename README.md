@@ -1,8 +1,16 @@
 
 # Vehicle Market
 
-Vehicle Market is an online platform to allow users to find vehicles on sale.
+Vehicle Market is an online platform to help people find vehicles on sale and connect them with sellers. 
 
+# Some Features
+
+-	Application built with ASP .NET Core MVC.
+-	Login with Role based access.
+-	Administrator user can do operations that manipulates database records from the platform.
+-	Executive user can post a vehicle sale ad.
+- Any anonymous user can see vehicles sale ads on the platform.
+-	Frontend developed with AdminLTE Template. 
 
 ## Getting Started 
 
@@ -30,5 +38,3 @@ Vehicle Market is an online platform to allow users to find vehicles on sale.
 ## Additional Information
 
 This project is still in process.
-
-Frontend was developed using AdminLTE template.
