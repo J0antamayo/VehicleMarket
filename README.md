@@ -3,7 +3,7 @@
 
 Vehicle Market is an online platform to help people find vehicles on sale and connect them with sellers. 
 
-# Some Features
+## Some Features
 
 -	Application built with ASP .NET Core MVC.
 -	Login with Role based access.
