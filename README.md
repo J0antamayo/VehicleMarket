@@ -1,5 +1,5 @@
 
-# Vehicle Market App
+# Vehicle Market
 
 Vehicle Market is an online platform to allow users to find vehicles on sale.
 
