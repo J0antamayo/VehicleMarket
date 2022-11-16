@@ -113,7 +113,7 @@ namespace VehicleMarket.Controllers
         //    return RedirectToAction(nameof(Index));
         //}
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> View(int Id)
         {
