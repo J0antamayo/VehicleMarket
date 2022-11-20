@@ -21,11 +21,19 @@ namespace VehicleMarket.Data
                     {
                         new Make()
                         {
-                            Name = "Mitsubishi"
+                            Name = "Ducati"
                         },
                         new Make()
                         {
                             Name = "Harley Davidson"
+                        },
+                        new Make()
+                        {
+                            Name = "Honda"
+                        },
+                        new Make()
+                        {
+                            Name = "Susuki"
                         }
                     });
                     context.SaveChanges();
@@ -38,17 +46,34 @@ namespace VehicleMarket.Data
                     {
                         new Model()
                         {
-                            Name = "2000",
+                            Name = "Diavel 1260",
                             MakeId = 1,
                         },
                         new Model()
                         {
-                            Name = "CB120F",
-                            Make = new Make()
-                            {
-                                Name = "Honda"
-                            }
-                        }
+                            Name = "XDiavel Black Star",
+                            MakeId = 1,
+                        },
+                        new Model()
+                        {
+                            Name = "Hypermotard 950",
+                            MakeId = 1,
+                        },
+                        new Model()
+                        {
+                            Name = "Forty-Eight",
+                            MakeId = 2,
+                        },
+                        new Model()
+                        {
+                            Name = "Iron 883",
+                            MakeId = 2,
+                        },
+                        new Model()
+                        {
+                            Name = "Iron 1200",
+                            MakeId = 2,
+                        },
                     });
                     context.SaveChanges();
                 }
@@ -98,7 +123,7 @@ namespace VehicleMarket.Data
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
                 //Create Admin User
-                string adminUserEmail = "joansebtamayodev@gmail.com";
+                string adminUserEmail = "admin@vehiclemarket.com";
                 var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
 
                 if (adminUser == null)
@@ -108,8 +133,8 @@ namespace VehicleMarket.Data
                         UserName = adminUserEmail,
                         Email = adminUserEmail,
                         EmailConfirmed = true,
-                        FirstName = "Joan",
-                        LastName = "Tamayo"
+                        FirstName = "Admin",
+                        LastName = "Admin"
                     };
                     await userManager.CreateAsync(newAdminUser, "Password123#");
                     await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
