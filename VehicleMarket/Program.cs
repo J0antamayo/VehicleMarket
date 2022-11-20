@@ -34,15 +34,9 @@ builder.Services.AddCloudscribePagination();
 
 var app = builder.Build();
 
-if (args.Length == 1 && args[0].ToLower() == "seeddata")
-{
-    Seed.SeedData(app);
-}
-
-if (args.Length == 1 && args[0].ToLower() == "seedusers")
-{
-    await Seed.SeedUsersAndRolesAsync(app);
-}
+//Seed Database
+Seed.SeedData(app);
+Seed.SeedUsersAndRolesAsync(app).Wait();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

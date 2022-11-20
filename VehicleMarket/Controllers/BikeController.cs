@@ -36,7 +36,6 @@ namespace VehicleMarket.Controllers
 
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index(string SearchString, string SortOrder, int PageNumber = 1, int PageSize = 2)
         {

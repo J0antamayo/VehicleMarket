@@ -12,7 +12,6 @@ namespace VehicleMarket.Repository
 
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-
         public BikeRepository(ApplicationDbContext context, IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
@@ -135,16 +134,19 @@ namespace VehicleMarket.Repository
         {
             var BikeId = bike.Id;
 
-            string wwrootPath = _hostingEnvironment.WebRootPath;
+            string wwwrootPath = _hostingEnvironment.WebRootPath;
 
             var savedBike = _context.Bikes.Find(bike.Id);
 
             if (files.Count() != 0)
             {
+                string path = Path.Combine(wwwrootPath, @"images\bike\");
+                DirectoryInfo di = Directory.CreateDirectory(path);
+
                 var ImagePath = @"images\bike\";
                 var Extension = Path.GetExtension(files[0].FileName);
                 var RelativeImagePath = ImagePath + BikeId + Extension;
-                var AbsImagePath = Path.Combine(wwrootPath, RelativeImagePath);
+                var AbsImagePath = Path.Combine(wwwrootPath, RelativeImagePath);
 
                 using (var fileStream = new FileStream(AbsImagePath, FileMode.Create))
                 {

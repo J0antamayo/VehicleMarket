@@ -57,7 +57,7 @@
                         @foreach (var item in Model.Data)
                         {
                             <tr>
-                                <td><img src="@Html.DisplayFor(m => item.ImagePath)" width="150px" height="100px" /></td>
+                                <td><img src="/@Html.DisplayFor(m => item.ImagePath)" width="150px" height="100px" alt="bike-photo" /></td>
                                 <td>
                                     <b>@Html.DisplayFor(m => item.Make.Name) </b> (@Html.DisplayFor(m => item.Year))
                                     <br />
