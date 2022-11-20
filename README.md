@@ -32,20 +32,8 @@ Vehicle Market is an online platform to help people find vehicles on sale and co
 ```bash
   PM> Update-Database
 ```
-5. From the Developer Powershell locate inside the MVC project:
 
-```bash
-  PS C:\Users\developer\project\VehicleMarket\VehicleMarket>
-```
-6. Run this commands to seed database:
-
-```bash
-  PS C:\Users\developer\VehicleMarket\VehicleMarket>dotnet run seeddata
-```
-```bash
-  PS C:\Users\developer\VehicleMarket\VehicleMarket>dotnet run seedusers
-```
-7. Credentials for users are:
+5. Credentials for users are:
 
 Admin Credentials\
 User: admin@vehiclemarket.com\
