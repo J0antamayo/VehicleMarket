@@ -40,10 +40,10 @@ Vehicle Market is an online platform to help people find vehicles on sale and co
 6. Run this commands to seed database:
 
 ```bash
-  PS C:\Users\developer\projectVehicleMarket\VehicleMarket>dotnet run seeddata
+  PS C:\Users\developer\project\VehicleMarket\VehicleMarket>dotnet run seeddata
 ```
 ```bash
-  PS C:\Users\developer\projectVehicleMarket\VehicleMarket>dotnet run seedusers
+  PS C:\Users\developer\project\VehicleMarket\VehicleMarket>dotnet run seedusers
 ```
 7. Credentials for users are:
 
