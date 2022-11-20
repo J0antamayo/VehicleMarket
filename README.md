@@ -47,12 +47,12 @@ Vehicle Market is an online platform to help people find vehicles on sale and co
 ```
 7. Credentials for users are:
 
-Admin Credentials
-User: admin@vehiclemarket.com
+Admin Credentials\
+User: admin@vehiclemarket.com\
 Password: Password123#
 
-Executive Credentials
-User: executive@vehiclemarket.com
+Executive Credentials\
+User: executive@vehiclemarket.com\
 Password: Password123#
 
 ## Authors
